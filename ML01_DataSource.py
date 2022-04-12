@@ -21,7 +21,7 @@ def getData(file: str):
     # print(animals)
 
     # Алгоритмы МО обычно ждут данные в своем специфическом стиле
-    # 1. Целевой вектор (tatrgets, labels)
+    # 1. Целевой вектор (targets, labels)
     labels = [a["type"] for a in animals]
     # print(labels)
     # 2. Признаки (features)
