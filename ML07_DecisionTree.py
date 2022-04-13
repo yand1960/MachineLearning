@@ -1,24 +1,20 @@
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import MinMaxScaler
+# Иcпользование алгоритма Дерево решений
+
+from sklearn.tree import DecisionTreeClassifier
 from numpy import ndarray
 from ML01_DataSource import getData
 
 # files = ["data_elephants_zebras_90.txt", "data_elephants_zebras_10.txt"]
-files = ["data_animals_150.txt", "data_animals_150.txt"]
+# files = ["data_animals_150.txt", "data_animals_150.txt"]
+files = ["data_elephants_rhinos_1000.txt", "data_elephants_rhinos_100.txt"]
 
-# Использование стандартной библиотеки scilearn (Не надо изобретать велсипед)
+# Использование стандартной библиотеки scikit-learn (Не надо изобретать велсипед)
 
 animals, labels, features, classes = getData(files[0])
 
-# Масшатбируем стандартным скейлером
-scaler = MinMaxScaler()
-scaler.fit(features)
-features: ndarray = scaler.transform(features)
-
-# print(features)
 
 # Создаем и обучаем модель
-model = KNeighborsClassifier(5)
+model = DecisionTreeClassifier(max_depth=10)
 model.fit(features,labels)
 
 # Проверяем точность на тестовой выборке
@@ -31,8 +27,6 @@ for i in range(0, len(labels)):
 print(f"Точность на обучающей выборке: {1 - errors / len(predictions)}")
 
 animals, labels_test, features_test, classes = getData(files[1])
-# Масштабируем тестовую так же, как обучающую (тем же скейлером)
-features_test = scaler.transform(features_test)
 
 predictions = model.predict(features_test)
 errors = 0
@@ -55,9 +49,8 @@ for i in range(0, len(labels_test)):
 for e in errors:
     print(f"Точность по классу {e['name']}: {1 - e['error'] / labels_test.count(e['name'])}")
 
+# Дерево интресно тем, что обученную модель можно визуализировать
+from sklearn import tree
+text_representation = tree.export_text(model)
+print(text_representation)
 
-# print(model.predict([[10,100]]))
-
-# ЗАДАЧИ
-# 1. Поисcледуйте слонов и зебр
-# 2. Надо бы переписать код для n>2 классификаторов в файле KNN2

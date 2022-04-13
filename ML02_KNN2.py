@@ -2,14 +2,14 @@
 
 # Делаем класс модели KNN
 class KNN:
-    # Гиперпараметры модели передаются через консрутктор модели
+    # Гиперпараметры модели передаются через конструктор модели
     def __init__(self, k, metrics = "manhattan"):
         self.k = k
         self.metrics = metrics
 
     # Метод, реализующий обучение (fit - подгонка)
     # В KNN очень просто: надо запомнить обучающую выборку
-    # В общем случае, здесь может быть очень сложный вычисляюший параметры модели
+    # В общем случае, здесь может быть очень сложный код, вычисляюший параметры модели
     def fit(self, features, labels):
         self.features = features
         self.labels = labels
@@ -36,12 +36,14 @@ class KNN:
         distances = distances[0:self.k]
         # print(distances)
         # Подсчитаем число элементов класса 0 среди этих k
-        n0 = len(list(filter(lambda d: d[1] == classes[0], distances)))
-        # Надо бы переписать для n>2 классификаторов:
-        if n0 > self.k / 2:
-            return classes[0]
-        else:
-            return classes[1]
+        # n0 = len(list(filter(lambda d: d[1] == classes[0], distances)))
+        # # Надо бы переписать для n>2 классификаторов:
+        # if n0 > self.k / 2:
+        #     return classes[0]
+        # else:
+        #     return classes[1]
+        # Подсчет для n>2 классификаторов в духе спортивной краткости:
+        return max([[len(list(filter(lambda d: d[1] == c, distances))), c] for c in classes])[1]
 
     def predict(self, data):
         results = []
@@ -77,7 +79,7 @@ if __name__ == "__main__":
     ]))
 
     # Проверить точность предсказаний модели на тестовой выборке (testing set)
-    # 1. Не вполне корректный вариант с исолзованием обучающей выборки в качестве тестовой
+    # 1. Не вполне корректный вариант с использованием обучающей выборки в качестве тестовой
 
     predictions = model.predict(features)
     errors = 0
@@ -86,13 +88,10 @@ if __name__ == "__main__":
             errors += 1
     print(f"Точность на обучающей выборке: {1 - errors / len(predictions)}")
 
-
-
-    # 2. использовать для обучения входную выборки за вычетом некоей случайно подвыборки.
+    # 2. использовать для обучения входную выборку за вычетом некоей случайно подвыборки.
     # Случайную подвыборку использовать в качестве тестовой - не делаем
 
     # 3. Получаем тестовую выборку от доброго дяди
-
     # Откуда-то берут входные данные
     animals, labels_test, features_test, classes = getData("data_elephants_rhinos_1000.txt")
 

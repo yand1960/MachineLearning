@@ -13,11 +13,12 @@ def getData(file: str):
     for line in lines:
         splitted = line.split("\t")
         # print(splitted)
-        animals.append({
-            "type": splitted[0],
-            "age": int(splitted[1]),
-            "weight": int(splitted[2])
-        })
+        if len(splitted) == 3:
+            animals.append({
+                "type": splitted[0],
+                "age": int(splitted[1]),
+                "weight": int(splitted[2])
+            })
     # print(animals)
 
     # Алгоритмы МО обычно ждут данные в своем специфическом стиле
