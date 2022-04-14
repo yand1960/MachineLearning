@@ -30,7 +30,7 @@ y_train = numpy.array(
 
 # Простая сеть
 model = models.Sequential()
-model.add(layers.Dense(3, activation="softmax", input_dim = 2))
+model.add(layers.Dense(3, activation="sigmoid", input_dim = 2))
 
 # Выстроим более cложные сети (как упражнение)
 # model = models.Sequential()
@@ -45,7 +45,7 @@ model.compile(
 
 model.fit(x_train, y_train, epochs=3000)
 y_predict: list = model.predict(x_train)
-# print(y_predict)
+print(y_predict)
 
 # Ошибки отдельно по классам
 # errors = [0,0,0]
@@ -58,6 +58,6 @@ y_predict: list = model.predict(x_train)
 
 # model.evaluate(x_train,y_train)
 
-# 1. Попытайтесь проблему "резкой" экспоненты (в файле 12)
+# 1. Попытайтесь решить проблему "резкой" экспоненты (в файле 12)
 # https://stackoverflow.com/questions/58163571/keras-python-custom-loss-function-to-give-the-maximum-value-of-absolute-differe
 # 2. Добавьте слои в эту модель. Не улучшится ли точность?
