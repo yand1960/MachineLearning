@@ -1,10 +1,7 @@
-# Задача клатеризации - разделить на группы
-# Иногда это называется обучением без учителя
+# Задача клаcтеризации - разделить выборку на группы
+# Иногда тако обучение называется обучением без учителя
 
-# Ипользование алгоритма Логистической регрессии.
-# На самом деле, это не регрессия, к классификатор, а название - историческое
-
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, SpectralClustering, DBSCAN, OPTICS, Birch
 from ML01_DataSource import getData
 from sklearn.preprocessing import StandardScaler
 
@@ -18,24 +15,23 @@ animals, labels, features, classes = getData(files[0])
 scaler = StandardScaler().fit(features)
 features = scaler.transform(features)
 
-
-# Создаем и обучаем модель
+# Создаем модель
 model = KMeans(n_clusters=2)
-model.fit(features)
+# model = SpectralClustering(n_clusters=2)
+# model = Birch(n_clusters=2)
 
-predictions = model.predict(features)
-print(predictions)
+predictions = model.fit_predict(features)
+print(predictions) #Видно, что кластеризация прошла не по признаку слонов и зебр
 
-# Визуализация результатов
+# Визуализация результатов (чтобы убедиться)
 import matplotlib.pyplot as plt
 
+colors = "rbgykmcrbgykmc"
 for i in range(0,len(features)):
     x = features[i][0]
     y = features[i][1]
-    if predictions[i] == 0:
-        plt.plot(x, y, "or")
-    else:
-        plt.plot(x, y, "ob")
+    plt.plot(x, y, f"o{colors[predictions[i]]}")
+
 plt.show()
 
 # Попробуйте кластеризацивать ирисы
