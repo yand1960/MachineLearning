@@ -21,7 +21,7 @@ stop_words = stopwords.words('russian')
 words = [w for w in words if not w in stop_words ]
 # print(words[0:500])
 
-# Стеммизация (привденеие слов к основам)
+# Стеммизация (приведение слов к основам)
 stemmer = nltk.stem.snowball.SnowballStemmer('russian')
 words = [stemmer.stem(w) for w in words]
 print(words[0:500])
