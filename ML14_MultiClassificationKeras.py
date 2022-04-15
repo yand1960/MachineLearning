@@ -29,23 +29,25 @@ y_train = numpy.array(
 # print(y_train)
 
 # Простая сеть
-model = models.Sequential()
-model.add(layers.Dense(3, activation="sigmoid", input_dim = 2))
+# model = models.Sequential()
+# model.add(layers.Dense(3, activation="softmax", input_dim = 2))
+# model.summary()
 
 # Выстроим более cложные сети (как упражнение)
-# model = models.Sequential()
-# model.add(layers.Dense(8, activation="relu", input_dim = 2))
-# model.add(layers.Dense(3, activation="softmax"))
-
+# При больщом количестве нейронов "переобучение" становится возмомным
+model = models.Sequential()
+model.add(layers.Dense(32, activation="relu", input_dim = 2))
+model.add(layers.Dense(3, activation="softmax"))
+model.summary()
 
 model.compile(
     loss="categorical_crossentropy",
     metrics=['accuracy']
 )
 
-model.fit(x_train, y_train, epochs=3000)
-y_predict: list = model.predict(x_train)
-print(y_predict)
+model.fit(x_train, y_train, epochs=1000, batch_size=150)
+y_predict = model.predict(x_train)
+# print(y_predict)
 
 # Ошибки отдельно по классам
 # errors = [0,0,0]
