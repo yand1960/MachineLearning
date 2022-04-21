@@ -8,7 +8,7 @@ from ML01_DataSource import getData
 files = ["data_animals_150.txt", "data_animals_150.txt"]
 # files = ["data_elephants_rhinos_1000.txt", "data_elephants_rhinos_100.txt"]
 
-# Использование стандартной библиотеки scikit-learn (Не надо изобретать велсипед)
+# Использование стандартной библиотеки scikit-learn (Не надо изобретать велосипед)
 
 animals, labels, features, classes = getData(files[0])
 
@@ -48,3 +48,4 @@ for i in range(0, len(labels_test)):
 
 for e in errors:
     print(f"Точность по классу {e['name']}: {1 - e['error'] / labels_test.count(e['name'])}")
+
