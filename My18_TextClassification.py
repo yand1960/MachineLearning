@@ -1,6 +1,6 @@
 import nltk
-from nltk.corpus import stopwords
 import re
+from sklearn.svm import SVC
 
 # Классификация текстов.
 # Два текста (Исход и Матфей) нормализуются,
@@ -26,7 +26,7 @@ def normalize_file(file):
 
     # Удаление стоп слов
     # nltk.download('stopwords')  # надо вызвать однократно
-    stop_words = stopwords.words('russian')
+    stop_words = nltk.corpus.stopwords.words('russian')
     words = [w for w in words if not w in stop_words ]
 
     # Стемизация (приведение слов к основам)
@@ -72,8 +72,6 @@ for text, file in zip(texts, FILES):
             test_y.append(label)
 
 # Ипользование алгоритма семейства SVM из стандартной библиотеки
-
-from sklearn.svm import SVC
 
 # Создаем и обучаем модель
 model = SVC(kernel="linear")
